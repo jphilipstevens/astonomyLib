@@ -13,28 +13,28 @@ class RASuite extends FunSuite {
   }
 
   //bad hours range test
-  test("string 25:18:23.1 throws an exception") {
+  test("string 25:30:23.1 throws an exception") {
 
     try {
       var ra = RightAscension("25:30:23.1");
+      println("Results: " + ra.hours + " " + ra.minutes + " " + ra.seconds)
+      //we got here this is bad
+      assert(false)
     } catch {
-      case ex: Exception => assert(ex.getMessage().equals("hours is beyond the normal rang of 0 - 24"))
+      case ex: Exception => assert(true)
     }
 
-    //we got here this is bad
-    assert(false)
   }
 
   test("string -1:18:23.1 throws an exception") {
 
     try {
       var ra = RightAscension("-1:30:23.1");
+      //we got here this is bad
+      assert(false)
     } catch {
-      case ex: Exception => assert(ex.getMessage().equals("hours is beyond the normal rang of 0 - 24"))
+      case ex: Exception => assert(true)
     }
-
-    //we got here this is bad
-    assert(false)
   }
 
   //bad minutes range test
@@ -42,24 +42,23 @@ class RASuite extends FunSuite {
 
     try {
       var ra = RightAscension("18:-1:23.1");
+      //we got here this is bad
+      assert(false)
     } catch {
-      case ex: Exception => assert(ex.getMessage().equals("minutes is beyond the normal rang of 0 - 59"))
+      case ex: Exception => assert(true)
     }
 
-    //we got here this is bad
-    assert(false)
   }
 
   test("string 18:61:23.1 throws an exception") {
 
     try {
       var ra = RightAscension("18:61:23.1");
+      //we got here this is bad
+      assert(false)
     } catch {
-      case ex: Exception => assert(ex.getMessage().equals("minutes is beyond the normal rang of 0 - 59"))
+      case ex: Exception => assert(true)
     }
-
-    //we got here this is bad
-    assert(false)
   }
 
   //bad seconds range test
@@ -67,24 +66,24 @@ class RASuite extends FunSuite {
 
     try {
       var ra = RightAscension("18:30:-1");
+      //we got here this is bad
+      assert(false)
     } catch {
-      case ex: Exception => assert(ex.getMessage().equals("seconds is beyond the normal rang of 0 - 59"))
+      case ex: Exception => assert(true)
     }
 
-    //we got here this is bad
-    assert(false)
   }
 
   test("string 18:30:61 throws an exception") {
 
     try {
       var ra = RightAscension("18:30:61");
+      //we got here this is bad
+      assert(false)
     } catch {
-      case ex: Exception => assert(ex.getMessage().equals("seconds is beyond the normal rang of 0 - 59"))
+      case ex: Exception => assert(true)
     }
 
-    //we got here this is bad
-    assert(false)
   }
 
   test("RA 18:30:23.1 should evaluate to 277.59625 degrees ") {
@@ -96,6 +95,7 @@ class RASuite extends FunSuite {
   test("RA 18:30:23.1 should evaluate to 4.844968554 radians ") {
 
     var ra = RightAscension("18:30:23.10");
+    println("RA 18.30.23.10 asRadians = " + ra.asRadians())
     assert(ra.asRadians() == 4.844968554)
   }
 
