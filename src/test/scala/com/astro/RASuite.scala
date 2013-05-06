@@ -6,6 +6,10 @@ import org.scalatest.FunSuite
  * Test the right ascension model
  */
 class RASuite extends FunSuite {
+  
+  var DECIMAL_PACES = 2
+  
+  
   test("can interpret ra string 18:30:23.1") {
     var ra = RightAscension("18:30:23.1");
     //we got here so no exception
@@ -86,17 +90,19 @@ class RASuite extends FunSuite {
 
   }
 
-  test("RA 18:30:23.1 should evaluate to 277.59625 degrees ") {
+  test("RA 18:30:23.1 should evaluate to 277.6 degrees ") {
 
     var ra = RightAscension("18:30:23.10");
-    assert(ra.asDegrees() == 277.59625)
+    var raDegrees = BigDecimal(ra.asDegrees()).setScale(DECIMAL_PACES, BigDecimal.RoundingMode.HALF_UP).toDouble
+    assert(raDegrees == 277.6)
   }
 
-  test("RA 18:30:23.1 should evaluate to 4.844968554 radians ") {
+  test("RA 18:30:23.1 should evaluate to 4.84 radians ") {
 
     var ra = RightAscension("18:30:23.10");
     println("RA 18.30.23.10 asRadians = " + ra.asRadians())
-    assert(ra.asRadians() == 4.844968554)
+    var raRadians = BigDecimal(ra.asRadians()).setScale(DECIMAL_PACES, BigDecimal.RoundingMode.HALF_UP).toDouble
+    assert(raRadians == 4.84)
   }
 
 }

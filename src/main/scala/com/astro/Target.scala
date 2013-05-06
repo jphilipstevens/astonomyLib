@@ -21,7 +21,12 @@ class Target(val rightAscention: RightAscension, val declination: Declination) {
    * @param asDegrees true will return the value as a degree value, false will return it as a radians value
    */
   def distance(that: Target, asDegrees: Boolean): Double = {
-    var cosGamma = Math.cos(90 - rightAscention.asDegrees) * Math.cos(90 - that.rightAscention.asDegrees) + Math.sin(90 - rightAscention.asDegrees) * Math.sin(90 - that.rightAscention.asDegrees) * Math.cos(declination.asDegrees - that.declination.asDegrees)
+    var cosGamma = Math.cos(Math.PI/2 - declination.asRadians) * 
+    			Math.cos(Math.PI/2 - that.declination.asRadians) + 
+    					Math.sin(Math.PI/2 - declination.asRadians) * 
+    					Math.sin(Math.PI/2 - that.declination.asRadians) * 
+    					Math.cos(rightAscention.asRadians - 
+    					    that.rightAscention.asRadians)
     if (!asDegrees) {
       return Math.acos(cosGamma)
     } else {

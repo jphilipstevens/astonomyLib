@@ -5,6 +5,8 @@ import org.scalatest.FunSuite
  * Test the right Declenation model
  */
 class DecSuite extends FunSuite {
+  var DECIMAL_PACES = 2
+
   test("can interpret Dec string 18:30:23.1") {
     var dec = Declination("18:30:23.1");
     //we got here so no exception
@@ -57,16 +59,18 @@ class DecSuite extends FunSuite {
     }
   }
 
-  test("Dec 18:30:23.1 should evaluate to 25.59625 degrees ") {
+  test("Dec 18:30:23.1 should evaluate to 25.6 degrees ") {
 
     var dec = Declination("18:30:23.10");
-    assert(dec.asDegrees() == 25.59625)
+    var decDegrees = BigDecimal(dec.asDegrees()).setScale(DECIMAL_PACES, BigDecimal.RoundingMode.HALF_UP).toDouble
+    assert(decDegrees == 25.6)
   }
 
-  test("Dec 18:30:23.1 should evaluate to 0.446738839 radians ") {
+  test("Dec 18:30:23.1 should evaluate to 0.45 radians ") {
     var dec = Declination("18:30:23.10");
     println("Dec 18.30.23.10 asRadians = " + dec.asRadians())
-    assert(dec.asRadians() == 0.446738839)
+    var decRadians = BigDecimal(dec.asRadians()).setScale(DECIMAL_PACES, BigDecimal.RoundingMode.HALF_UP).toDouble
+    assert(decRadians == 0.45)
   }
 
 }

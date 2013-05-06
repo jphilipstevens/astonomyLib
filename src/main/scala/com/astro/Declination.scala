@@ -11,7 +11,7 @@ package com.astro
  * along the hour circle passing through the point in
  * question.[1]
  */
-class Declination(val degreeHours: Int, val minutes: Int, val seconds: Double) {
+class Declination(val degreeHours: BigDecimal, val minutes: BigDecimal, val seconds: BigDecimal) {
 
   /**
    * get the degrees value of the RA
@@ -20,7 +20,7 @@ class Declination(val degreeHours: Int, val minutes: Int, val seconds: Double) {
     var degreesMin = (minutes / 60.0) * 15.0;
     var degreesSec = (seconds / 3600.0) * 15.0;
     var degreeVal = degreeHours + degreesMin + degreesSec;
-    return degreeVal
+    return degreeVal.toDouble
   }
 
   /**

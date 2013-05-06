@@ -11,17 +11,23 @@ package com.astro
  * is measured eastward along the celestial equator from the vernal
  * equinox to the hour circle of the point in question.[1]
  */
-class RightAscension(val hours: Double, val minutes: Double, val seconds: Double) {
+class RightAscension private (val hours: BigDecimal, val minutes: BigDecimal, val seconds: BigDecimal) {
 
   /**
-   * get the degrees value of the RA
+   * returns the angle of the RA in degrees without formatting
+   * @return BigDecimal
    */
   def asDegrees(): Double = {
-    var degreeHours = hours * 15.0;
-    var degreesMin = (minutes / 60.0) * 15.0;
-    var degreesSec = (seconds / 3600.0) * 15.0;
+    var degreeHours = hours
+    degreeHours *= 15.0
+    var degreesMin = minutes
+    degreesMin /= 60.0
+    degreesMin *= 15.0
+    var degreesSec = seconds
+    degreesSec /= 3600.0
+    degreesSec *= 15.0
     var degrees = degreeHours + degreesMin + degreesSec;
-    return degrees
+    return degrees.toDouble
   }
 
   /**
@@ -29,8 +35,8 @@ class RightAscension(val hours: Double, val minutes: Double, val seconds: Double
    */
   def asRadians(): Double = {
     var result = asDegrees()
-
-    return Math.toRadians(result)
+    var resultRadians = Math.toRadians(result.toDouble)
+    return resultRadians
   }
 }
 
@@ -39,12 +45,12 @@ object RightAscension {
    * Parse the RA string which should be in hours:minutes:seconds
    */
   def apply(raString: String) = {
-    println(raString)
+    //println(raString)
     var raParts = raString.split(":").map(f => f.toDouble)
     if (raParts.length != 3) {
       throw new Exception("String is not in format hours:min:seconds")
     }
-    raParts.map(f => println("\t\t" + f))
+    //raParts.map(f => println("\t\t" + f))
     //there has to be a more functional way to do this!
     if (raParts(0) > 24 || raParts(0) < 0) {
       throw new Exception("hours is beyond the normal range of 0 - 24")
