@@ -68,8 +68,8 @@ class DecSuite extends FunSuite {
 
   test("Dec 18:30:23.1 should evaluate to 0.45 radians ") {
     var dec = Declination("18:30:23.10");
-    println("Dec 18.30.23.10 asRadians = " + dec.asRadians())
-    var decRadians = BigDecimal(dec.asRadians()).setScale(DECIMAL_PACES, BigDecimal.RoundingMode.HALF_UP).toDouble
+    println("Dec 18.30.23.10 asRadians = " + dec.asRadians)
+    var decRadians = BigDecimal(dec.asRadians).setScale(DECIMAL_PACES, BigDecimal.RoundingMode.HALF_UP).toDouble
     assert(decRadians == 0.45)
   }
 

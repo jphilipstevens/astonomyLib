@@ -26,8 +26,8 @@ class Declination(val degreeHours: BigDecimal, val minutes: BigDecimal, val seco
   /**
    * Get the radians value of the RA
    */
-  def asRadians(): Double = {
-    var result = asDegrees()
+  def asRadians: Double = {
+    val result = asDegrees()
     return Math.toRadians(result)
   }
 }
@@ -37,7 +37,7 @@ class Declination(val degreeHours: BigDecimal, val minutes: BigDecimal, val seco
  */
 object Declination {
   def apply(decString: String) = {
-    var raParts = decString.split(":").map(f => f.toDouble)
+    val raParts = decString.split(":").map(f => f.toDouble)
     if (raParts.length != 3) {
       throw new Exception("String is not in format hours:min:seconds")
     }
