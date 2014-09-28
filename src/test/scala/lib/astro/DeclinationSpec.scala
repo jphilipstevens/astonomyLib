@@ -51,6 +51,13 @@ class DeclinationSpec extends FeatureSpec {
       val declination = Declination("1:2:3").getOrElse(fail("Declination value 1:2:3 could not be parsed"))
       assert(declination.seconds.equals(BigDecimal(3)))
     }
-  }
 
+    scenario("Values less than 1 are not allowed"){
+      assert(Declination("1:2:-1").isFailure)
+    }
+
+    scenario("Values more than 60 seconds is not allowed") {
+      assert(Declination("1:2:61").isFailure)
+    }
+  }
 }
